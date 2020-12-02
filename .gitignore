@@ -1,2 +1,2 @@
-neo4j
-*/__pycache__
+neo4j/
+__pycache__/
