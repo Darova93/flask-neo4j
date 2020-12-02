@@ -11,6 +11,7 @@ COPY Pipfile.lock .
 COPY . .
 
 RUN pipenv install --deploy --ignore-pipfile
+RUN pipenv install neo4j
 
 EXPOSE 5000
 
