@@ -1,8 +1,6 @@
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 from data.books import books, bookFields
 
-from neo4j import GraphDatabase
-
 class BookList(Resource):
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
@@ -34,19 +32,10 @@ class BookList(Resource):
             help="The rating must be provided",
             location="json"
         )
-        self.driver = GraphDatabase.driver('localhost', auth=('neo4j', 'admin'))
 
     def get(self):
-        with self.driver.session() as session:
-            session.write_transaction(self._create_and_return_greeting, 'Hello world')
-        # return{"books": [marshal(book, bookFields) for book in books]}
+        return{"books": [marshal(book, bookFields) for book in books]}
 
-    def _create_and_return_greeting(self, tx, message):
-        result = tx.run("CREATE (a:Greeting) "
-                        "SET a.message = $message "
-                        "RETURN a.message + ', from node ' + id(a)", message=message)
-        return result.single()[0]
-        
     def post(self):
         args = self.reqparse.parse_args()
         book = {

@@ -1,2 +1,5 @@
 neo4j/
 __pycache__/
+
+#config files
+image-storage.json
