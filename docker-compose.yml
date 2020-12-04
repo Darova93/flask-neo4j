@@ -8,6 +8,8 @@ services:
       - 5000:5000
     volumes:
       - .:/user/src/flaskbookapi
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS='./image-storage.json'
   graph-database:
     image: neo4j:latest
     restart: unless-stopped
